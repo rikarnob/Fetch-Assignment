@@ -1,4 +1,4 @@
--- Question 1 - Closed Ended
+-- Question 1 
 --What are the top 5 brands by receipts scanned among users 21 and over?
 
 WITH users_new AS (
@@ -15,24 +15,28 @@ INNER JOIN users_new as un
  on coalesce(t.user_id,'Null ID') = coalesce(un.id,'Null ID')
 WHERE date_diff('year',un.birth_year_month, TIMESTAMP '2025-02-01 00:00:00') >= 21
 ),
+prod_new AS (
+SELECT *, row_number() over (partition by cast(BARCODE as varchar) order by BRAND) as rn
+FROM products
+WHERE cast(BARCODE as varchar) != ''
+),
 prod_tnx_filt AS (
 SELECT p.brand, count(distinct tf.receipt_id) as receipt_count
 FROM tnx_filt as tf
-LEFT JOIN products as p
- on coalesce(cast(tf.barcode as varchar),'NULL BARCODE') = coalesce(cast(p.barcode as varchar),'NULL BARCODE')
-  -- handling the eventuality of a null value in barcode
-WHERE p.brand is not null or p.brand != ''
+LEFT JOIN prod_new as p
+ on cast(tf.barcode as varchar) = cast(p.barcode as varchar)
+WHERE p.rn = 1
 GROUP BY 1
 )
 select *
 from prod_tnx_filt
 where brand != '' or brand is not null or brand != ' '
 order by receipt_count desc
-limit 5;
+limit 6;
 
 
 
--- Question 2 - Closed Ended
+-- Question 2
 -- What are the top 5 brands by sales among users that have had their account for at least six months?
 
 WITH users_new AS (
@@ -47,7 +51,12 @@ SELECT t.*, un.created_year_month
 FROM transactions as t
 INNER JOIN users_new as un
  on coalesce(t.user_id,'Null ID') = coalesce(un.id,'Null ID')
-WHERE date_diff('month',un.created_year_month, TIMESTAMP '2025-02-01 00:00:00') >= 6
+WHERE date_diff('month',un.created_year_month, TIMESTAMP '2025-02-01 00:00:00') >=6
+),
+prod_new AS (
+SELECT *, row_number() over (partition by cast(BARCODE as varchar) order by BRAND) as rn
+FROM products
+WHERE cast(BARCODE as varchar) != ''
 ),
 prod_tnx_filt AS (
 SELECT brand, 
@@ -57,23 +66,21 @@ SELECT brand,
                 ELSE CAST(final_sale AS DOUBLE)
             END) as sales
 FROM tnx_filt as tf
-LEFT JOIN products as p
+LEFT JOIN prod_new as p
  on coalesce(cast(tf.barcode as varchar),'NULL BARCODE') = coalesce(cast(p.barcode as varchar),'NULL BARCODE')
 GROUP BY 1
 )
-select COALESCE(brand,'NULL, which shouldn''t be here but is') as brand, sales
+select COALESCE(brand,'Unknown Brand') as brand, sales
 from prod_tnx_filt
 where brand != '' or brand is not null or brand != ' '
 order by sales desc
 limit 6;
 
-
--- Question 3 - Open Ended
+-- Question 3.1
 -- Who are Fetch’s power users?
 
---I used the first portion, user_hist, in the below query to check user purchase amounts, distinct receipts and distinct scan dates; 
--- using amount is straightforward but I saw it has some outliers, i.e. users that are high spenders but not necessarily frequent scanners or shoppers. 
---I use distinct receipt counts to identify frequent shoppers and distinct scan date counts as a proxy for app usage
+--I used the first portion, user_hist, in the below query to check user purchase amounts, distinct receipts and distinct scan dates; amount is straightforward but I saw it has some outliers, i.e. users that are high spenders but not necessarily frequent scanners or shoppers. I use distinct receipt counts to identify frequent shoppers
+-- and distinct scan date counts as a proxy for app usage
 
 with user_hist as (
 select t.user_id
@@ -82,8 +89,8 @@ select t.user_id
             WHEN BIRTH_DATE IS NULL OR BIRTH_DATE = '' THEN NULL  -- Skip null or empty values
             ELSE parse_datetime(substr(BIRTH_DATE, 1, 7), 'yyyy-MM') END as birth_year_month
        ,count(distinct receipt_id) as cnt_rec
-       ,count(distinct parse_datetime(substr(scan_date,1,10),'YYYY-MM-DD')) as dist_scan_Date
        -- parsing just the date portion of the datetime field
+       ,count(distinct parse_datetime(substr(scan_date,1,10),'YYYY-MM-DD')) as dist_scan_Date
        ,sum(CASE
                 WHEN final_sale = ' ' OR final_sale = '' THEN NULL  
                         -- Handle NaN, null, or empty strings
@@ -95,6 +102,7 @@ inner join users as u
 group by 1,2,3
 order by cnt_rec desc, dist_scan_Date desc, money_spent desc
 ),
+-- calculating the percentile values for amount spent, distinct scan dates and distinct receipt counts
 percentiles as (
 select approx_percentile(money_spent, 0.75) as money_spent_p,
        approx_percentile(dist_scan_Date, 0.75) as dist_scan_Date_p,
@@ -125,4 +133,3 @@ from frequent_scanners as a
   on a.user_id = c.user_id
   )
 select * from power_users;
-  
