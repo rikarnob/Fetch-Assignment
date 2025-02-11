@@ -3,14 +3,30 @@ Codes for close and open-ended questions for Fetch's take home assignment
 
 Questions answered - 
 
-## Closed-ended questions:
+#### Closed-ended questions:
 
-### What are the top 5 brands by receipts scanned among users 21 and over?
-### What are the top 5 brands by sales among users that have had their account for at least six months?
+##### What are the top 5 brands by receipts scanned among users 21 and over?
 
-## Open-ended questions:
+* DOVE
+* NERDS CANDY
+* COCA-COLA
+* HERSHEY'S
+* SOUR PATCH KIDS
 
-### Who are Fetch’s power users?
+##### What are the top 5 brands by sales among users that have had their account for at least six months?
+
+* COCA-COLA
+* ANNIE'S HOMEGROWN GROCERY
+* DOVE
+* BAREFOOT
+* ORIBE
+
+#### Open-ended questions:
+
+##### Who are Fetch’s power users?
+
+Approached this by using a combination of sales amount, distinct count of receipts scanned
+and distinct count of scanned days (a proxy for app usage)
 
 
 I have added a Jupyter notebook that contains a preliminary investigation of the datasets
