@@ -76,7 +76,7 @@ where brand != '' or brand is not null or brand != ' '
 order by sales desc
 limit 6;
 
--- Question 3.1
+-- Question 3
 -- Who are Fetch’s power users?
 
 --I used the first portion, user_hist, in the below query to check user purchase amounts, distinct receipts and distinct scan dates; amount is straightforward but I saw it has some outliers, i.e. users that are high spenders but not necessarily frequent scanners or shoppers. I use distinct receipt counts to identify frequent shoppers
