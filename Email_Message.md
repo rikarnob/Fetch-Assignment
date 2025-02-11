@@ -8,9 +8,9 @@ Key Findings:
 
 **Power User Demographics**: Our power users (defined by high spending, frequent app usage, and frequent purchases) are predominantly female (76.4%) and fall within the 35-50 age range (71%).
 
-**Growth Opportunity**: Male Users:  We have a significant opportunity to attract more male users, particularly Millennials and Gen Z.  While our overall user base has a female-to-male ratio of 2.6, our power user base has a much higher ratio of 3.25. This suggests we're missing out on a significant potential market of male consumers.
+**Growth Opportunity**: Younger Male Users:  We have a significant opportunity to attract more male users, particularly younger Millennials and Gen Z.  While our overall user base has a female-to-male ratio of 2.6, our power user base has a much higher ratio of 3.25. This suggests we're missing out on a significant potential market of younger male consumers.
 
-Data Challenges (for context, these are being addressed):
+Data Challenges faced (for context, these are being addressed):
 
 **Product Barcodes**:  The way product barcodes are stored in our system (using a scientific e^N notation) can sometimes make it tricky to accurately link product information to transactions.  We're working on solutions to ensure data accuracy that includes storing all barcodes as string values to avoid data loss
 
