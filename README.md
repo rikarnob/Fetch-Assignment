@@ -1,6 +1,6 @@
 # Fetch-Assignment
 
-Questions answered - 
+For the closed-ended questions, I removed `nan` barcodes and took the first occurrences of duplicate barcodes from the products table. I also filtered the **transactions** table for users present in the **users** table before proceeding with the analyses. I noted that the overlap of users between **transactions** and **users** is pretty low, and thus it poses a limitation to conclusions we can draw. At best, we use the following analysis as a directional tool to get more data for future analyses.
 
 #### Closed-ended questions:
 
@@ -10,15 +10,15 @@ Questions answered -
 * NERDS CANDY
 * COCA-COLA
 * HERSHEY'S
-* SOUR PATCH KIDS
+* GREAT VALUE
 
 ##### What are the top 5 brands by sales among users that have had their account for at least six months?
 
-* COCA-COLA
-* ANNIE'S HOMEGROWN GROCERY
+* CVS
+* TRIDENT
 * DOVE
-* BAREFOOT
-* ORIBE
+* COORS LIGHT
+* AXE
 
 #### Open-ended questions:
 
@@ -32,7 +32,7 @@ ___
 I have added a Jupyter notebook that contains a preliminary investigation of the datasets
 as well as a Pandasql implementation of 2 closed and 1 open-ended questions.
 
-One of the reason I used Pandasql was to utilize the ease of working with datetimes in
+One of the reasons I used Pandasql was to utilize the ease of working with datetimes in
 Python and combining that with the ease of manipulating tabular data in SQL.
 
 As I wasn't entirely sure what Fetch is looking for, I included the SQL codes for the three
