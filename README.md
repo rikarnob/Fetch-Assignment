@@ -27,6 +27,7 @@ Questions answered -
 Approached this by using a combination of sales amount, distinct count of receipts scanned
 and distinct count of scanned days (a proxy for app usage)
 
+___
 
 I have added a Jupyter notebook that contains a preliminary investigation of the datasets
 as well as a Pandasql implementation of 2 closed and 1 open-ended questions.
