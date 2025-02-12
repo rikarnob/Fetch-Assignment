@@ -24,8 +24,7 @@ For the closed-ended questions, I removed `nan` barcodes and took the first occu
 
 ##### Who are Fetch’s power users?
 
-Approached this by using a combination of sales amount, distinct count of receipts scanned
-and distinct count of scanned days (a proxy for app usage)
+Approached this by using a combination of sales amount, distinct count of receipts scanned and distinct count of scanned days (a proxy for app usage). Discovered most of our power users are a combination of Millenial and Gen-X women.
 
 ___
 
