@@ -4,19 +4,17 @@ I've been analyzing our user and transaction data to understand trends and ident
 
 Key Findings:
 
-**Top Performing Brands**: Coca-Cola and Dove are our top performers, consistently leading in both sales and the number of unique receipts scanned by loyal (21+ years old and 6+ months account tenure) users. This trend remains consistent even when we look at users who have been with us for longer periods (2+ years, 3+ years, etc.).
+**Top Performing Brands**: Dove consistently performs as one of our top brands, leading in both sales and the number of unique receipts scanned by loyal, GenZ/Millenial users (21+ years old and 6+ months account tenure). This trend remains consistent even when we look at users who have been with us for longer periods (2+ years, 3+ years, etc.)
 
-**Power User Demographics**: Our power users (defined by high spending, frequent app usage, and frequent purchases) are predominantly female (76.4%) and fall within the 35-50 age range (71%).
+**Power User Demographics**: Our power users (defined by high spending, frequent app usage, and more purchases) are predominantly women (76.4%) who fall within the 35-50 age range (71%).
 
-**Growth Opportunity**: Younger Male Users:  We have a significant opportunity to attract more male users, particularly younger Millennials and Gen Z.  While our overall user base has a female-to-male ratio of 2.6, our power user base has a much higher ratio of 3.25. This suggests we're missing out on a significant potential market of younger male consumers.
+**Growth Opportunity**: Young Men:  We have a significant opportunity to attract more male users, particularly younger Millennials and older Gen Z.  While our overall user base has a male-to-female ratio of 0.4, our power user base has lower ratio of 0.31. This suggests we're missing out on a significant potential market of younger male consumers, which could significantly increase our overall revenue and user engagement.
 
 Data Challenges faced (for context, these are being addressed):
 
-**Product Barcodes**:  The way product barcodes are stored in our system (using a scientific e^N notation) can sometimes make it tricky to accurately link product information to transactions.  We're working on solutions to ensure data accuracy that includes storing all barcodes as string values to avoid data loss
+**Product Barcodes**: I identified a data quality issue with product barcodes in our Products table, including duplicates and missing values. This impacts our ability to accurately analyze product performance. I'm working with the Catalog/Product and Data Engineering teams to identify the root cause and implement a fix. (*Note: Duplicates were de-duped and null values dropped for this analysis*)
 
-**User Birthdates**:  We have some missing birthdate information for users, which impacted our ability to do more detailed demographic analysis. A small group of users (72 out of 100,000) are also listed as either over 100 or under 5 years old.
-
-**Transaction Data**:  Some transaction records are missing barcodes, quantities, or final sale amounts. My suspicion is this might have to do with the way receipts are being scanned - I'll work with the engineering team to address this issue and reduce missing data
+**Transaction Data**:  Some transaction records are missing barcodes, quantities, or final sale amounts, potentially due to issues with user receipt scanning.  I'll work with the Engineering team to identify the cause and explore ways to reduce missing data. For this analysis, missing amounts were treated as zero.  As a next step, I can explore replacing missing amounts/quantities with averages for the corresponding brand/category to improve reporting accuracy
 
 I'm continuing to investigate these findings and will share further insights and recommendations as I go.  I believe the potential to attract more male users, particularly in the Millennial and Gen Z demographics, represents a significant growth opportunity.
 
